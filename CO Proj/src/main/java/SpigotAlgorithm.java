@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class SpigotAlgorithm {
 
         private int digits_requested;
@@ -9,7 +11,7 @@ public class SpigotAlgorithm {
         private static final int MAX_DIGITS_REQUESTED = 644245094;
 
         // Get the number of digits requested from the command line arguments.
-        public boolean setRequesteDigits(int digits_requested) {
+        public boolean setRequestedDigits(int digits_requested) {
 
             this.digits_requested = digits_requested;
 
@@ -32,14 +34,13 @@ public class SpigotAlgorithm {
             int array_size_needed = digits_requested * 10 / 3 + 1;
             digits = new int[array_size_needed];
             if (digits == null) {
-                System.err.printf("Failed to allocate " + (array_size_needed*4)
+                System.err.print("Failed to allocate " + (array_size_needed*4)
                         + " bytes.");
                 return false;
             }
 
             // fill each digit with a 2
-            for (int i=0; i < digits.length; i++)
-                digits[i] = 2;
+            Arrays.fill(digits, 2);
 
             return true;
         }
@@ -113,6 +114,4 @@ public class SpigotAlgorithm {
                 }
             }
         }
-
-    
 }

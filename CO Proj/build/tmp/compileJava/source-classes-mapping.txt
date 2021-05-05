@@ -1,4 +1,4 @@
-SpigotAlgorithm.java
- SpigotAlgorithm
 Main.java
  Main
+SpigotAlgorithm.java
+ SpigotAlgorithm

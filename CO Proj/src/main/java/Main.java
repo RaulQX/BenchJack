@@ -7,7 +7,7 @@ public class Main {
         int randomNum = ThreadLocalRandom.current().nextInt(0, 100);
 
         SpigotAlgorithm spigot = new SpigotAlgorithm();
-        if (!spigot.setRequesteDigits(randomNum)) return;
+        if (!spigot.setRequestedDigits(100)) return;
         spigot.run();
 
     }
