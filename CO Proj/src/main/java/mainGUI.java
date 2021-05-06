@@ -191,7 +191,7 @@ public class mainGUI extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-        if (!spigot.setRequestedDigits(10000)) return;
+        if (!spigot.setRequestedDigits(100)) return;
         spigot.run();
 
         jTextArea1.setText(spigot.getAllDigits());

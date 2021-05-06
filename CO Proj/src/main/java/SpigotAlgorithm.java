@@ -1,12 +1,10 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class SpigotAlgorithm {
 
-        private int digits_requested;
+        private int digitsRequested;
         private int[] digits;
-        private StringBuilder predigits = new StringBuilder();
+        private StringBuilder preDigits = new StringBuilder();
         private String allDigits = "";
         private String last10Digits = "";
 
@@ -27,7 +25,7 @@ public class SpigotAlgorithm {
 
             //TODO CHANGE THIS
 
-            this.digits_requested = digits_requested;
+            this.digitsRequested = digits_requested;
 
             if (digits_requested > MAX_DIGITS_REQUESTED) {
                 System.err.println("Maximum digit count is " + MAX_DIGITS_REQUESTED);
@@ -42,10 +40,9 @@ public class SpigotAlgorithm {
             return true;
         }
 
-
         // Allocate digits[]
         public boolean init() {
-            int array_size_needed = digits_requested * 10 / 3 + 1;
+            int array_size_needed = digitsRequested * 10 / 3 + 1;
             digits = new int[array_size_needed];
             if (digits == null) {
                 System.err.print("Failed to allocate " + (array_size_needed*4)
@@ -59,22 +56,21 @@ public class SpigotAlgorithm {
             return true;
         }
 
-
         // Produce digits
         void run() {
             if (!init()) return;
 
-            for (int iter = 0; iter < digits_requested; iter++) {
+            for (int iter = 0; iter < digitsRequested; iter++) {
 
                 // Work backwards through the array, multiplying each digit by 10,
                 // carrying the excess and leaving the remainder.
                 int carry = 0;
                 for (int i = digits.length - 1; i > 0; i--) {
                     int numerator = i;
-                    int denomenator = i * 2 + 1;
+                    int denominator = i * 2 + 1;
                     int tmp = digits[i] * 10 + carry;
-                    digits[i] = tmp % denomenator;
-                    carry = tmp / denomenator * numerator;
+                    digits[i] = tmp % denominator;
+                    carry = tmp / denominator * numerator;
                 }
 
                 // process the last digit
@@ -86,7 +82,8 @@ public class SpigotAlgorithm {
                 if (digit < 9) {
                     flushDigits();
                     // print a decimal after the leading "3"
-                    if (iter == 1) System.out.print(".");
+                    if (iter == 1) //System.out.print(".");
+                        allDigits += ".";
                     addDigit(digit);
                 } else if (digit == 9) {
                     addDigit(digit);
@@ -101,34 +98,31 @@ public class SpigotAlgorithm {
             //System.out.println();
 
             //System.out.println("ALL: " + allDigits);
-            last10Digits = allDigits.substring(digits_requested - 10);
+            last10Digits = allDigits.substring(digitsRequested - 10);
         }
-
 
         // write the buffered digits
         void flushDigits() {
-            allDigits += predigits;
+            allDigits += preDigits;
             //System.out.append(predigits);
-            predigits.setLength(0);
+            preDigits.setLength(0);
         }
-
 
         // given an integer 0..9, buffer a digit '0' .. '9'
         void addDigit(int digit) {
-            predigits.append((char)('0' + digit));
+            preDigits.append((char)('0' + digit));
         }
-
 
         // add one to each digit, rolling over from from 9 to 0
         void overflowDigits() {
-            for (int i=0; i < predigits.length(); i++) {
-                char digit = predigits.charAt(i);
+            for (int i = 0; i < preDigits.length(); i++) {
+                char digit = preDigits.charAt(i);
                 // This could be implemented with a modulo, but compared to the main
                 // loop this code is too quick to measure.
                 if (digit == '9') {
-                    predigits.setCharAt(i, '0');
+                    preDigits.setCharAt(i, '0');
                 } else {
-                    predigits.setCharAt(i, (char)(digit + 1));
+                    preDigits.setCharAt(i, (char)(digit + 1));
                 }
             }
         }
