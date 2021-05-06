@@ -19,4 +19,4 @@ test {
     useJUnitPlatform()
 }
 
-mainClassName = 'Main'
+mainClassName = 'mainGUI'

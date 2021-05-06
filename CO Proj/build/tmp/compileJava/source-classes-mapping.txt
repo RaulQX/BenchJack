@@ -1,14 +1,22 @@
+timing/ITimer.java
+ timing.ITimer
 logging/ConsoleLogger.java
  logging.ConsoleLogger
 timing/Timer.java
  timing.Timer
+bench/IBenchmark.java
+ bench.IBenchmark
+logging/FileLogger.java
+ logging.FileLogger
+timing/TimerState.java
+ timing.TimerState
 logging/ILog.java
  logging.ILog
 logging/TimeUnit.java
  logging.TimeUnit
  logging.TimeUnit$1
-timing/TimerState.java
- timing.TimerState
+testbench/TestCPUCasino.java
+ testbench.TestCPUCasino
 Blackjack.java
  Blackjack
  Card
@@ -18,22 +26,11 @@ Blackjack.java
  Hand
  Player
  T
-timing/ITimer.java
- timing.ITimer
-bench/IBenchmark.java
- bench.IBenchmark
-logging/FileLogger.java
- logging.FileLogger
-Main.java
- Main
-bench/cpu/SpigotAlgorithm.java
- bench.cpu.SpigotAlgorithm
-testbench/TestCPUCasino.java
- testbench.TestCPUCasino
 mainGUI.java
  mainGUI
  mainGUI$1
  mainGUI$2
  mainGUI$3
  mainGUI$4
- mainGUI$5
+bench/cpu/SpigotAlgorithm.java
+ bench.cpu.SpigotAlgorithm
