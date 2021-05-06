@@ -1,10 +1,13 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class SpigotAlgorithm {
 
         private int digits_requested;
         private int[] digits;
         private StringBuilder predigits = new StringBuilder();
+        List<Integer> last10Digits = new ArrayList<Integer>();
 
         // Max value such that digits.length <= INT_MAX.
         //   ceil(((2**31-1) - 1) * 3 / 10)
@@ -20,8 +23,8 @@ public class SpigotAlgorithm {
                 return false;
             }
 
-            if (digits_requested <= 0) {
-                System.err.println("Digit count must be positive.");
+            if (digits_requested <= 10) {
+                System.err.println("Digit count must be positive and > 10");
                 return false;
             }
 
@@ -82,6 +85,9 @@ public class SpigotAlgorithm {
                     addDigit(0);
                 }
                 // System.out.flush();
+
+
+
             }
             flushDigits();
             System.out.println();
