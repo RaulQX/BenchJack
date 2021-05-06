@@ -7,9 +7,14 @@ public class SpigotAlgorithm {
         private int digits_requested;
         private int[] digits;
         private StringBuilder predigits = new StringBuilder();
-        private List<Integer> last10Digits = new ArrayList<Integer>();
+        private String allDigits = "";
+        private String last10Digits = "";
 
-    public List<Integer> getLast10Digits() {
+    public String getAllDigits() {
+        return allDigits;
+    }
+
+    public String getLast10Digits() {
         return last10Digits;
     }
 
@@ -21,15 +26,6 @@ public class SpigotAlgorithm {
         public boolean setRequestedDigits(int digits_requested) {
 
             //TODO CHANGE THIS
-
-            last10Digits.add(1);
-            last10Digits.add(2);
-            last10Digits.add(3);
-            last10Digits.add(4);
-            last10Digits.add(5);
-            last10Digits.add(6);
-            last10Digits.add(7);
-
 
             this.digits_requested = digits_requested;
 
@@ -73,7 +69,7 @@ public class SpigotAlgorithm {
                 // Work backwards through the array, multiplying each digit by 10,
                 // carrying the excess and leaving the remainder.
                 int carry = 0;
-                for (int i=digits.length-1; i > 0; i--) {
+                for (int i = digits.length - 1; i > 0; i--) {
                     int numerator = i;
                     int denomenator = i * 2 + 1;
                     int tmp = digits[i] * 10 + carry;
@@ -100,18 +96,19 @@ public class SpigotAlgorithm {
                     addDigit(0);
                 }
                 // System.out.flush();
-
-
-
             }
             flushDigits();
-            System.out.println();
+            //System.out.println();
+
+            //System.out.println("ALL: " + allDigits);
+            last10Digits = allDigits.substring(digits_requested - 10);
         }
 
 
         // write the buffered digits
         void flushDigits() {
-            System.out.append(predigits);
+            allDigits += predigits;
+            //System.out.append(predigits);
             predigits.setLength(0);
         }
 

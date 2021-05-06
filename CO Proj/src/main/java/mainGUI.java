@@ -77,7 +77,7 @@ public class mainGUI extends javax.swing.JFrame {
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("3.14159263");
+        jTextArea1.setText("PI digits go here");
         jTextArea1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jTextArea1.setMaximumSize(new java.awt.Dimension(2147483647, 74));
         jScrollPane1.setViewportView(jTextArea1);
@@ -177,11 +177,6 @@ public class mainGUI extends javax.swing.JFrame {
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
 
-        List<Integer> cards = spigot.getLast10Digits();
-        //int contor = 0;
-        //switch cards[contor]
-
-
         Image img = new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("Images/Cards/AC.png"))).getImage();
 
         Image resizedImg = img.getScaledInstance(153,231, java.awt.Image.SCALE_SMOOTH);
@@ -196,10 +191,10 @@ public class mainGUI extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-        if (!spigot.setRequestedDigits(100)) return;
+        if (!spigot.setRequestedDigits(10000)) return;
         spigot.run();
 
-        jTextArea1.setText("Aici te prefaci ca scrie pi");
+        jTextArea1.setText(spigot.getAllDigits());
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
