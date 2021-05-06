@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -15,6 +16,7 @@ import java.util.Objects;
  */
 public class mainGUI extends javax.swing.JFrame {
 
+    private int countCardsDraw = 0;
     SpigotAlgorithm spigot = new SpigotAlgorithm();
     /**
      * Creates new form mainGUI
@@ -177,7 +179,8 @@ public class mainGUI extends javax.swing.JFrame {
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
 
-        Image img = new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("Images/Cards/AC.png"))).getImage();
+        System.out.println("EU SUNT PATH: " + getPathToCardImage());
+        Image img = new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource(getPathToCardImage()))).getImage();
 
         Image resizedImg = img.getScaledInstance(153,231, java.awt.Image.SCALE_SMOOTH);
         jButton3.setIcon(new ImageIcon(resizedImg));
@@ -185,13 +188,43 @@ public class mainGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton3MouseClicked
 
+    private String getPathToCardImage() {
+        String digits = spigot.getLast10Digits();
+        StringBuilder tmp = new StringBuilder("Images/Cards/");
+        int c = Integer.parseInt(String.valueOf(digits.charAt(countCardsDraw)));
+        if(c == 1)
+            tmp.append("10");
+        else if(c == 9) {
+            int randomNum = ThreadLocalRandom.current().nextInt(1, 5);
+            switch (randomNum) {
+                case 2 -> tmp.append("J");
+                case 3 -> tmp.append("Q");
+                case 4 -> tmp.append("K");
+                default -> tmp.append("9");
+            }
+        }
+        else
+            tmp.append(c);
+
+        int randomNum = ThreadLocalRandom.current().nextInt(1, 5);
+        switch (randomNum) {
+            case 1 -> tmp.append("D");
+            case 2 -> tmp.append("H");
+            case 3 -> tmp.append("S");
+            default -> tmp.append("C");
+        }
+
+        return tmp.append(".png").toString();
+    }
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-        if (!spigot.setRequestedDigits(100)) return;
+        int randomNum = ThreadLocalRandom.current().nextInt(11, 1500);
+        if (!spigot.setRequestedDigits(randomNum)) return;
         spigot.run();
 
         jTextArea1.setText(spigot.getAllDigits());
