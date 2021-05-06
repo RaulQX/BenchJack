@@ -186,7 +186,7 @@ public class mainGUI extends javax.swing.JFrame {
         int c = Integer.parseInt(String.valueOf(digits.charAt(countCardsDraw)));
         if(c == 1)
             tmp.append("10");
-        else if(c == 9) {
+        else if(c == 9 || c == 0) {
             int randomNum = ThreadLocalRandom.current().nextInt(1, 5);
             switch (randomNum) {
                 case 2 -> tmp.append("J");
