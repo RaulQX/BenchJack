@@ -1,6 +1,11 @@
-import java.util.Arrays;
+package bench.cpu;
 
-public class SpigotAlgorithm {
+import bench.IBenchmark;
+
+import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
+
+public class SpigotAlgorithm implements IBenchmark {
 
         private int digitsRequested;
         private int[] digits;
@@ -56,52 +61,87 @@ public class SpigotAlgorithm {
             return true;
         }
 
-        // Produce digits
-        void run() {
-            if (!init()) return;
+    @Override
+    public void initialize(Object... params) {
 
-            for (int iter = 0; iter < digitsRequested; iter++) {
+        setRequestedDigits(ThreadLocalRandom.current().nextInt(11, 1500));
+        init();
+    }
 
-                // Work backwards through the array, multiplying each digit by 10,
-                // carrying the excess and leaving the remainder.
-                int carry = 0;
-                for (int i = digits.length - 1; i > 0; i--) {
-                    int numerator = i;
-                    int denominator = i * 2 + 1;
-                    int tmp = digits[i] * 10 + carry;
-                    digits[i] = tmp % denominator;
-                    carry = tmp / denominator * numerator;
-                }
-
-                // process the last digit
-                int tmp = digits[0] * 10 + carry;
-                digits[0] = tmp % 10;
-                int digit = tmp / 10;
-
-                // implement buffering and overflow
-                if (digit < 9) {
-                    flushDigits();
-                    // print a decimal after the leading "3"
-                    if (iter == 1) //System.out.print(".");
-                        allDigits += ".";
-                    addDigit(digit);
-                } else if (digit == 9) {
-                    addDigit(digit);
-                } else {
-                    overflowDigits();
-                    flushDigits();
-                    addDigit(0);
-                }
-                // System.out.flush();
-            }
-            flushDigits();
-            //System.out.println();
-
-            //System.out.println("ALL: " + allDigits);
-            last10Digits = allDigits.substring(digitsRequested - 10);
+    @Override
+    public void warmUp() {
+        int res;
+        for(int i = 0 ; i < digitsRequested; ++i) {
+            res = 0;
         }
+    }
 
-        // write the buffered digits
+    @Override
+    @Deprecated
+    public void run() {
+
+    }
+
+    @Override
+    public void run(Object... options) {
+
+        for (int iter = 0; iter < digitsRequested; iter++) {
+
+            // Work backwards through the array, multiplying each digit by 10,
+            // carrying the excess and leaving the remainder.
+            int carry = 0;
+            for (int i = digits.length - 1; i > 0; i--) {
+                int numerator = i;
+                int denominator = i * 2 + 1;
+                int tmp = digits[i] * 10 + carry;
+                digits[i] = tmp % denominator;
+                carry = tmp / denominator * numerator;
+            }
+
+            // process the last digit
+            int tmp = digits[0] * 10 + carry;
+            digits[0] = tmp % 10;
+            int digit = tmp / 10;
+
+            // implement buffering and overflow
+            if (digit < 9) {
+                flushDigits();
+                // print a decimal after the leading "3"
+                if (iter == 1) //System.out.print(".");
+                    allDigits += ".";
+                addDigit(digit);
+            } else if (digit == 9) {
+                addDigit(digit);
+            } else {
+                overflowDigits();
+                flushDigits();
+                addDigit(0);
+            }
+            // System.out.flush();
+        }
+        flushDigits();
+        //System.out.println();
+
+        //System.out.println("ALL: " + allDigits);
+        last10Digits = allDigits.substring(digitsRequested - 10);
+    }
+
+    @Override
+    public void cancel() {
+
+    }
+
+    @Override
+    public void clean() {
+
+    }
+
+    @Override
+    public String getResult() {
+        return allDigits;
+    }
+
+    // write the buffered digits
         void flushDigits() {
             allDigits += preDigits;
             //System.out.append(predigits);

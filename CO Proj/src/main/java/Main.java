@@ -1,3 +1,5 @@
+import bench.cpu.SpigotAlgorithm;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {

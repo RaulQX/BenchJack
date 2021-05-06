@@ -4,9 +4,12 @@
  * and open the template in the editor.
  */
 
+import bench.IBenchmark;
+import bench.cpu.SpigotAlgorithm;
+import testbench.TestCPUCasino;
+
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -18,6 +21,8 @@ public class mainGUI extends javax.swing.JFrame {
 
     private int countCardsDraw = 0;
     SpigotAlgorithm spigot = new SpigotAlgorithm();
+    TestCPUCasino obj = new TestCPUCasino();
+    SpigotAlgorithm bench;
     /**
      * Creates new form mainGUI
      */
@@ -177,9 +182,8 @@ public class mainGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        // TODO add your handling code here:
+        // TODO add your handling code here
 
-        System.out.println("EU SUNT PATH: " + getPathToCardImage());
         Image img = new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource(getPathToCardImage()))).getImage();
 
         Image resizedImg = img.getScaledInstance(153,231, java.awt.Image.SCALE_SMOOTH);
@@ -189,7 +193,7 @@ public class mainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3MouseClicked
 
     private String getPathToCardImage() {
-        String digits = spigot.getLast10Digits();
+        String digits = bench.getLast10Digits();
         StringBuilder tmp = new StringBuilder("Images/Cards/");
         int c = Integer.parseInt(String.valueOf(digits.charAt(countCardsDraw)));
         if(c == 1)
@@ -224,10 +228,10 @@ public class mainGUI extends javax.swing.JFrame {
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
         int randomNum = ThreadLocalRandom.current().nextInt(11, 1500);
-        if (!spigot.setRequestedDigits(randomNum)) return;
-        spigot.run();
 
-        jTextArea1.setText(spigot.getAllDigits());
+        bench = obj.getBench();
+        obj.TestBench();
+        jTextArea1.setText(bench.getAllDigits());
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
