@@ -7,14 +7,29 @@ public class SpigotAlgorithm {
         private int digits_requested;
         private int[] digits;
         private StringBuilder predigits = new StringBuilder();
-        List<Integer> last10Digits = new ArrayList<Integer>();
+        private List<Integer> last10Digits = new ArrayList<Integer>();
 
-        // Max value such that digits.length <= INT_MAX.
+    public List<Integer> getLast10Digits() {
+        return last10Digits;
+    }
+
+    // Max value such that digits.length <= INT_MAX.
         //   ceil(((2**31-1) - 1) * 3 / 10)
         private static final int MAX_DIGITS_REQUESTED = 644245094;
 
         // Get the number of digits requested from the command line arguments.
         public boolean setRequestedDigits(int digits_requested) {
+
+            //TODO CHANGE THIS
+
+            last10Digits.add(1);
+            last10Digits.add(2);
+            last10Digits.add(3);
+            last10Digits.add(4);
+            last10Digits.add(5);
+            last10Digits.add(6);
+            last10Digits.add(7);
+
 
             this.digits_requested = digits_requested;
 
